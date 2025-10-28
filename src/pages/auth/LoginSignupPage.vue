@@ -8,13 +8,14 @@
           <input v-model="signUpForm.name" type="text" placeholder="Name" />
           <input v-model="signUpForm.email" type="email" placeholder="Email" />
           <input v-model="signUpForm.password" type="password" placeholder="Password" />
+          <input v-model="signUpForm.password" type="password" placeholder="Confirm Password" />
           <button type="submit">Register</button>
-          <span>or register via</span>
           <div class="divider"></div>
           <div class="social-container">
 
             <a href="#" class="social">
               <img src="/src/assets/google_logo_icon.png" alt="Google" style="width: 20px; height: 20px;" />
+              <span>Continue with Google</span>
             </a>
 
           </div>
@@ -28,12 +29,12 @@
           <input v-model="signInForm.password" type="password" placeholder="Password" />
           <a href="#">Forgot your password?</a>
           <button type="submit">Login</button>
-          <span>or login via</span>
           <div class="divider"></div>
           <div class="social-container">
 
             <a href="#" class="social">
               <img src="/src/assets/google_logo_icon.png" alt="Google" style="width: 20px; height: 20px;" />
+              <span>Continue with Google</span>
             </a>
 
           </div>
@@ -105,7 +106,6 @@ const handleSignIn = (): void => {
 
 <style scoped>
 
-/* This is from youtube also, super long */
 
 * {
   box-sizing: border-box;
@@ -143,11 +143,6 @@ p {
   margin: 20px 0 30px;
 }
 
-span {
-  font-size: 12px;
-  margin-top: 15px;
-}
-
 a {
   color: #333;
   font-size: 14px;
@@ -156,17 +151,19 @@ a {
 }
 
 button {
-  border-radius: 20px;
+  border-radius: 10px;
   border: 1px solid #0ea5e9;
   background-color: #0ea5e9;
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
-  padding: 12px 45px;
+  padding: 12px 15px;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   cursor: pointer;
+  width: 100%;
+  margin: 8px 0;
 }
 
 button:active {
@@ -211,7 +208,7 @@ input {
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  min-height: 550px;
 }
 
 .form-container {
@@ -329,21 +326,27 @@ input {
 }
 
 .divider {
-  width: 80%;
+  width: 100%;
   height: 1px;
   background-color: #ddd;
   margin: 15px 0;
 }
 
+.social-container {
+  width: 100%;
+}
+
 .social-container a {
   border: 1px solid #DDDDDD;
-  border-radius: 50%;
-  display: inline-flex;
+  border-radius: 10px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 5px;
-  height: 40px;
-  width: 40px;
+  margin: 8px 0;
+  padding: 12px 15px;
+  width: 100%;
+  gap: 10px;
+  background-color: #fff;
 }
 
 .overlay-logo {
