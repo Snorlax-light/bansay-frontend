@@ -15,7 +15,7 @@ export default defineConfigWithVueTs(
      *
      * ESLint requires "ignores" key to be the only one in this object
      */
-    // ignores: []
+    ignores: ['src/services/sdk/**/*']
   },
 
   pluginQuasar.configs.recommended(),
@@ -33,10 +33,11 @@ export default defineConfigWithVueTs(
    * pluginVue.configs["flat/recommended"]
    *   -> Above, plus rules to enforce subjective community defaults to ensure consistency.
    */
-  pluginVue.configs[ 'flat/essential' ],
+  pluginVue.configs['flat/essential'],
 
   {
     files: ['**/*.ts', '**/*.vue'],
+    ignores: ['src/services/sdk'],
     rules: {
       '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -74,7 +75,7 @@ export default defineConfigWithVueTs(
   },
 
   {
-    files: [ 'src-pwa/custom-service-worker.ts' ],
+    files: ['src-pwa/custom-service-worker.ts'],
     languageOptions: {
       globals: {
         ...globals.serviceworker
