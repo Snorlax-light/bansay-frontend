@@ -1,4 +1,3 @@
-<!--From youtube, login page draft-->
 <template>
   <div class="auth-wrapper">
     <div class="container" :class="{ 'right-panel-active': isSignUpActive }">
@@ -61,8 +60,6 @@
 </template>
 
 <script setup lang="ts">
-
-//dont know type script, from youtube
 
 import { ref } from 'vue';
 
