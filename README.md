@@ -1,6 +1,6 @@
 # Bansay App (bansay)
 
-CICS Liability System
+CICS Liability System for Students
 
 ## Install the dependencies
 ```bash
