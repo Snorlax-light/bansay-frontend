@@ -114,7 +114,7 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
-import logo from '../assets/logo.png';
+import logo from 'src/assets/logo.png';
 import 'boxicons/css/boxicons.min.css';
 import { useAuthStore } from 'src/stores/auth-store';
 import { type UserRegisterDtoRoleEnum } from 'src/services/sdk';
