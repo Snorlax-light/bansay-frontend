@@ -12,12 +12,12 @@
 
           <div class="input-box">
             <input v-model="username" type="text" placeholder="Username" required />
-            <i class="bx bxs-user"></i>
+            <q-icon name="mdi-account" class="icon" />
           </div>
 
           <div class="input-box">
             <input v-model="password" type="password" placeholder="Password" required />
-            <i class="bx bxs-lock"></i>
+            <q-icon name="mdi-lock" class="icon" />
           </div>
 
           <div class="input-box">
@@ -33,7 +33,7 @@
             <a href="#">Forgot Password?</a>
           </div>
 
-          <button type="submit" class="btn">Login</button>
+          <q-btn type="submit" color="indigo" label="Login" class="full-width" />
 
           <p>
             Don’t have an account?
@@ -42,10 +42,10 @@
 
           <p>Or login with</p>
           <div class="social-icons">
-            <a href="#"><i class="bx bxl-google"></i></a>
-            <a href="#"><i class="bx bxl-facebook"></i></a>
-            <a href="#"><i class="bx bxl-github"></i></a>
-            <a href="#"><i class="bx bxl-linkedin"></i></a>
+            <q-btn round color="red" icon="mdi-google" size="10px" />
+            <q-btn round color="blue-8" icon="mdi-facebook" size="10px" />
+            <q-btn round color="black" icon="mdi-github" size="10px" />
+            <q-btn round color="blue-9" icon="mdi-linkedin" size="10px" />
           </div>
         </q-form>
       </div>
@@ -69,17 +69,17 @@
 
           <div class="input-box">
             <input v-model="username" type="text" placeholder="Username" required />
-            <i class="bx bxs-user"></i>
+            <q-icon name="mdi-account" class="icon" />
           </div>
 
           <div class="input-box">
             <input v-model="email" type="email" placeholder="Email" required />
-            <i class="bx bxs-envelope"></i>
+            <q-icon name="mdi-email" class="icon" />
           </div>
 
           <div class="input-box">
             <input v-model="password" type="password" placeholder="Password" required />
-            <i class="bx bxs-lock"></i>
+            <q-icon name="mdi-lock" class="icon" />
           </div>
 
           <div class="input-box">
@@ -90,7 +90,7 @@
               :class="{ 'input-error': passwordError }"
               required
             />
-            <i class="bx bxs-lock-alt"></i>
+            <q-icon name="mdi-lock-reset" class="icon" />
           </div>
 
           <p v-if="passwordError" class="error-message">{{ passwordError }}</p>
@@ -104,7 +104,7 @@
             </select>
           </div>
 
-          <button type="submit" class="btn">Register</button>
+          <q-btn type="submit" color="indigo" label="Register" class="full-width" />
 
           <p>
             Already have an account?
@@ -113,10 +113,10 @@
 
           <p>Or register with</p>
           <div class="social-icons">
-            <a href="#"><i class="bx bxl-google"></i></a>
-            <a href="#"><i class="bx bxl-facebook"></i></a>
-            <a href="#"><i class="bx bxl-github"></i></a>
-            <a href="#"><i class="bx bxl-linkedin"></i></a>
+            <q-btn round color="red" icon="mdi-google" size="10px" />
+            <q-btn round color="blue-8" icon="mdi-facebook" size="10px" />
+            <q-btn round color="black" icon="mdi-github" size="10px" />
+            <q-btn round color="blue-9" icon="mdi-linkedin" size="10px" />
           </div>
         </q-form>
       </div>
@@ -127,11 +127,16 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { QBtn, QForm, QIcon } from 'quasar';
 import logo from '../assets/logo.png';
-import 'boxicons/css/boxicons.min.css';
 
 export default defineComponent({
   name: 'LoginRegister',
+  components: {
+    QBtn,
+    QForm,
+    QIcon,
+  },
   setup() {
     const router = useRouter();
 
@@ -288,18 +293,7 @@ export default defineComponent({
   font-size: 20px;
   color: #2d3748;
 }
-.btn {
-  width: 100%;
-  height: 48px;
-  background: #1e40af;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: #fff;
-  font-weight: 600;
-  margin-top: 10px;
-}
+
 .logo-header {
   display: flex;
   flex-direction: column;
