@@ -19,7 +19,7 @@ const routes = [
   },
   {
     path: '/admin/user-management',
-    component: () => import('src/pages/Admin/user-management.vue'),
+    component: () => import('src/pages/Admin/UserManagementPage.vue'),
   },
 ];
 
