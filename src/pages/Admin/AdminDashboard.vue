@@ -48,7 +48,15 @@
               <q-card-section class="text-center">
                 <q-icon name="person" size="48px" color="primary" class="q-mb-sm" />
                 <div class="text-h6 text-primary">User Management</div>
-                <div class="text-body2 text-grey-7">Manage user roles</div>
+                <div class="text-body2 text-grey-7">Manage user roles and permissions</div>
+              </q-card-section>
+            </q-card>
+
+            <q-card class="admin-action-card cursor-pointer" @click="navigateToPendingApprovals">
+              <q-card-section class="text-center">
+                <q-icon name="check_circle" size="48px" color="primary" class="q-mb-sm" />
+                <div class="text-h6 text-primary">Pending Approvals</div>
+                <div class="text-body2 text-grey-7">Review and approve submissions</div>
               </q-card-section>
             </q-card>
           </div>
@@ -65,6 +73,12 @@ const router = useRouter()
 
 const navigateToUserManagement = () => {
   router.push('/admin/user-management').catch(() => {
+
+  })
+}
+
+const navigateToPendingApprovals = () => {
+  router.push('/admin/pending-approvals').catch(() => {
 
   })
 }
