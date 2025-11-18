@@ -1,1 +1,0 @@
-<template>Admin Dashboard</template>

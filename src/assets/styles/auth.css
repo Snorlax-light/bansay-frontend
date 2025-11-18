@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+.q-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+}
+.container {
+  position: relative;
+  width: 400px;
+  max-width: 90vw;
+  background: #f0f4f8;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.register-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 5px;
+}
+.login-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 5px;
+}
+
+.form-box {
+  display: none;
+}
+.form-box.active {
+  display: block;
+}
+.input-box {
+  position: relative;
+  margin: 15px 0;
+}
+.input-box input,
+.input-box select {
+  width: 100%;
+  padding: 13px 50px 13px 20px;
+  background: #cbd5e1;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #2d3748;
+  font-weight: 500;
+}
+.input-box input::placeholder {
+  color: #4a5568;
+  opacity: 1;
+}
+.input-error {
+  border: 2px solid #e74c3c !important;
+  background-color: #ffe6e6;
+}
+.input-box i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #2d3748;
+}
+
+.logo-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+.logo {
+  width: 110px;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 20%;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: 0 8px 25px rgba(37, 78, 218, 0.25);
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(37, 78, 218, 0.35);
+}
+.logo {
+  animation: fadeInLogo 0.8s ease-in-out;
+}
+
+.app-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #2d3748;
+  text-transform: uppercase;
+}
+
+p {
+  font-size: 14px;
+  margin-top: 15px;
+}
+p a {
+  color: #2952e3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.social-icons a:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease;
+}
+.error-message {
+  color: #e53e3e;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+@keyframes fadeInLogo {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
