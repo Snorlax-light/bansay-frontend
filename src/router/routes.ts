@@ -17,6 +17,14 @@ const routes = [
     path: '/admin-dashboard',
     component: () => import('src/pages/Admin/AdminDashboard.vue'),
   },
+  {
+    path: '/admin/user-management',
+    component: () => import('src/pages/Admin/UserManagementPage.vue'),
+  },
+  {
+    path: '/admin/pending-approvals',
+    component: () => import('src/pages/Admin/PendingApprovalPage.vue')
+  },
 ];
 
 export default routes;
