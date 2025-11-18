@@ -145,11 +145,10 @@ watch([password, confirmPassword], () => {
   }
 });
 async function login() {
-  const user = await authStore.login({
+  await authStore.login({
     username: loginUsername.value,
     password: loginPassword.value,
   });
-  console.log(user);
 }
 
 async function register() {
