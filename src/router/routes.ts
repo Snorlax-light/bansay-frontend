@@ -22,11 +22,11 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'officer-dashboard',
-        component: () => import('pages/officer/OfficerDashboard.vue'),
+        component: () => import('pages/Officer/OfficerDashboard.vue'),
       },
       {
         path: 'admin-dashboard',
-        component: () => import('pages/admin/AdminDashboard.vue'),
+        component: () => import('pages/Admin/AdminDashboard.vue'),
       },
     ],
   },
