@@ -25,9 +25,8 @@ export interface UpdateLiabilityDto {
 }
 
 const isDevEnv = process.env.NODE_ENV == 'development';
-const baseUrl: string = isDevEnv
-  ? 'http://localhost:3030'
-  : 'http://ec2-18-219-109-27.us-east-2.compute.amazonaws.com:3030';
+const baseUrl: string = isDevEnv ? 'http://localhost:3030' :
+  'http://ec2-18-219-109-27.us-east-2.compute.amazonaws.com:3030';
 
 export class BansayService {
   private static instance?: BansayService;
@@ -40,7 +39,7 @@ export class BansayService {
   private liabilityApi = new LiabilityApi({
     basePath: baseUrl,
     isJsonMime: () => true,
-    accessToken: () => localStorage.getItem('accessToken') || '',
+    accessToken: () => localStorage.getItem('accessToken') || '', //needs local storage token for auth
   });
 
   static getInstance() {
@@ -52,9 +51,10 @@ export class BansayService {
   async loginUser(data: UserLoginDto) {
     const response = await this.authApi.authControllerLogin(data);
     if (response.status == 201 || response.status == 200) {
+      //save access token (response.data.accessToken) to localStorage
       return response.data;
     } else {
-      throw new Error(response.statusText || 'Bad Request');
+      throw new Error(response.statusText || "Bad Request");
     }
   }
 
@@ -63,7 +63,7 @@ export class BansayService {
     if (response.status == 201 || response.status == 200) {
       return response.data;
     } else {
-      throw new Error(response.statusText || 'Bad Request');
+      throw new Error(response.statusText || "Bad Request");
     }
   }
 
