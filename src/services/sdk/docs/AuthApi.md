@@ -52,7 +52,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authControllerLogin**
-> authControllerLogin(userLoginDto)
+> LoginResponseDto authControllerLogin(userLoginDto)
 
 
 ### Example
@@ -83,7 +83,7 @@ const { status, data } = await apiInstance.authControllerLogin(
 
 ### Return type
 
-void (empty response body)
+**LoginResponseDto**
 
 ### Authorization
 
@@ -92,18 +92,18 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**200** |  |  -  |
+|**0** |  |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authControllerRegister**
-> authControllerRegister(userRegisterDto)
+> RegisterResponseDto authControllerRegister(userRegisterDto)
 
 
 ### Example
@@ -134,7 +134,7 @@ const { status, data } = await apiInstance.authControllerRegister(
 
 ### Return type
 
-void (empty response body)
+**RegisterResponseDto**
 
 ### Authorization
 
@@ -143,13 +143,13 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**201** |  |  -  |
+|**0** |  |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

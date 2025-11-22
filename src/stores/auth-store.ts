@@ -13,10 +13,10 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async login(payload: UserLoginDto) {
-      await BansayService.getInstance().loginUser(payload);
+      return await BansayService.getInstance().loginUser(payload);
     },
     async register(data: UserRegisterDto) {
-      await BansayService.getInstance().registerUser(data);
+      return await BansayService.getInstance().registerUser(data);
     }
   },
 });

@@ -118,6 +118,7 @@ import logo from 'src/assets/logo.png';
 import 'boxicons/css/boxicons.min.css';
 import { useAuthStore } from 'src/stores/auth-store';
 import { type UserRegisterDtoRoleEnum } from 'src/services/sdk';
+import { useRouter } from 'vue-router';
 const loginUsername = ref('');
 const loginPassword = ref('');
 
@@ -144,12 +145,18 @@ watch([password, confirmPassword], () => {
     passwordError.value = '';
   }
 });
+const $router = useRouter();
 async function login() {
-  const user = await authStore.login({
+  const response = await authStore.login({
     username: loginUsername.value,
     password: loginPassword.value,
+    role: role.value as UserRegisterDtoRoleEnum,
   });
-  console.log(user);
+  if (/^admin$/i.test(response.user?.role)) {
+    await $router.replace({
+      name: 'admin-dashboard',
+    });
+  }
 }
 
 async function register() {

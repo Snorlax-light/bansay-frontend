@@ -8,13 +8,17 @@ docs/AdminApi.md
 docs/AppApi.md
 docs/AuthApi.md
 docs/LiabilityApi.md
+docs/LoginResponseDto.md
 docs/OfficerApi.md
 docs/OfficerDto.md
+docs/RegisterResponseDto.md
+docs/RegistrationInfoDto.md
 docs/StudentApi.md
 docs/StudentDto.md
 docs/StudentPatchDto.md
 docs/StudentRegistrationDto.md
 docs/UserApi.md
+docs/UserInfoDto.md
 docs/UserLoginDto.md
 docs/UserRegisterDto.md
 git_push.sh

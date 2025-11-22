@@ -5,7 +5,9 @@ All URIs are relative to *http://localhost*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**liabilityControllerCreate**](#liabilitycontrollercreate) | **POST** /liability | |
-|[**liabilityControllerFindOne**](#liabilitycontrollerfindone) | **GET** /liability | |
+|[**liabilityControllerFindOne**](#liabilitycontrollerfindone) | **GET** /liability/{id} | |
+|[**liabilityControllerSoftDelete**](#liabilitycontrollersoftdelete) | **DELETE** /liability/{id} | |
+|[**liabilityControllerUpdate**](#liabilitycontrollerupdate) | **PATCH** /liability/{id} | |
 
 # **liabilityControllerCreate**
 > liabilityControllerCreate(body)
@@ -72,7 +74,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new LiabilityApi(configuration);
 
-let id: number; // (default to undefined)
+let id: string; // (default to undefined)
 
 const { status, data } = await apiInstance.liabilityControllerFindOne(
     id
@@ -83,7 +85,7 @@ const { status, data } = await apiInstance.liabilityControllerFindOne(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **id** | [**number**] |  | defaults to undefined|
+| **id** | [**string**] |  | defaults to undefined|
 
 
 ### Return type
@@ -97,6 +99,109 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** |  |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **liabilityControllerSoftDelete**
+> liabilityControllerSoftDelete()
+
+
+### Example
+
+```typescript
+import {
+    LiabilityApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new LiabilityApi(configuration);
+
+let id: string; // (default to undefined)
+
+const { status, data } = await apiInstance.liabilityControllerSoftDelete(
+    id
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** |  |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **liabilityControllerUpdate**
+> liabilityControllerUpdate(body)
+
+
+### Example
+
+```typescript
+import {
+    LiabilityApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new LiabilityApi(configuration);
+
+let id: string; // (default to undefined)
+let body: object; //
+
+const { status, data } = await apiInstance.liabilityControllerUpdate(
+    id,
+    body
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **body** | **object**|  | |
+| **id** | [**string**] |  | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 

@@ -1,6 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-<<<<<<< HEAD
     <q-header elevated>
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
@@ -12,12 +11,9 @@
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <div class="q-pa-md">
         <h6>Menu</h6>
-        <div>Ako nalang dito.</div>
+        <div>for Administration</div>
       </div>
     </q-drawer>
-=======
-    <q-header elevated> </q-header>
->>>>>>> upstream/develop
 
     <q-page-container>
       <router-view />
@@ -25,4 +21,12 @@
   </q-layout>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const leftDrawerOpen = ref(false);
+
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
+</script>
