@@ -96,13 +96,17 @@ import '../../assets/styles/auth.css';
 import { useRouter } from 'vue-router';
 import { QBtn, QForm, QIcon } from 'quasar';
 import logo from '../../assets/logo.png';
+// import { type UserRegisterDtoRoleEnum } from 'src/services/sdk'; // uncomment when done with ui testing
+//import { useAuthStore } from 'src/stores/auth-store'; // uncomment when done with ui testing
+// import { useQuasar } from 'quasar'; // uncomment when done with ui testing
 
 export default defineComponent({
   name: 'LoginPage',
   components: { QBtn, QForm, QIcon },
   setup() {
     const router = useRouter();
-
+    // const $q = useQuasar(); uncomment when done with ui testing
+    // const authStore = useAuthStore(); uncomment when done with ui testing
     const username = ref('');
     const password = ref('');
     const selectedRole = ref(null);
@@ -121,9 +125,39 @@ export default defineComponent({
       if (selectedRole.value === 'student') void router.push('/student-dashboard');
       else if (selectedRole.value === 'officer') void router.push('/officer-dashboard');
       else if (selectedRole.value === 'admin') void router.push('/admin-dashboard');
-    };
 
+      /* uncomment if done with ui testing. for real backend login
+      try {
+        const response = await authStore.login({
+          username: username.value,
+          password: password.value,
+          role: role.value as UserRegisterDtoRoleEnum,
+        });
+
+        $q.notify({
+          type: 'positive',
+          message: 'Login successful!',
+          position: 'top',
+          timeout: 2000,
+        });
+
+        if (role.value === 'student') void router.push('/student-dashboard');
+        else if (role.value === 'officer') void router.push('/officer-dashboard');
+        else if (role.value === 'admin') void router.push('/admin-dashboard');
+
+        console.log(response);
+
+      } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : 'Login failed';
+          $q.notify({
+            type: 'negative',
+            message: errorMessage,
+            position: 'top',
+            timeout: 3000,
+        });
+      }*/
+    };
     return { logo, username, password, selectedRole, roles, loginForm, handleLogin };
-  },
-});
+  }
+})
 </script>
