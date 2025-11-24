@@ -1,75 +1,153 @@
 <template>
-  <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-red-8 text-white">
-      <q-toolbar>
-        <q-btn flat dense round icon="menu" @click="leftDrawer = !leftDrawer" />
-        <q-toolbar-title>Admin Dashboard</q-toolbar-title>
-      </q-toolbar>
-    </q-header>
-    <q-drawer v-model="leftDrawer" show-if-above bordered class="bg-grey-1">
-      <q-scroll-area class="fit">
-        <dev class="q-pa-md"></dev>
-        <q-card
-          class="dashboard-card q-mb-md"
-          clickable
-          v-ripple
-          @click="selectCard('User Management')"
-        ></q-card>
-        <div class="col-12 col-md-4">
-          <q-card class="dashboard-card">
-            <q-card-section>
-              <div class="text-h6">User Management</div>
-              <div class="text-caption text-grey-7">Manage user accounts and permissions.</div>
-            </q-card-section>
-            <q-card-actions align="left">
-              <q-btn color="red-8" label="Manage Users" flat />
-            </q-card-actions>
-          </q-card>
-        </div>
-        <q-card
-          class="dashboard-card q-mb-md"
-          clickable
-          v-ripple
-          @click="selectCard('System Settings')"
-        ></q-card>
-        <div class="col-12 col-md-4"></div>
-
-        <q-card class="dashboard-card">
-          <q-card-section>
-            <div class="text-h6">System Settings</div>
-            <div class="text-caption text-grey-7">Configure system preferences and settings.</div>
+  <q-page class="q-pa-md">
+    <div class="admin-dashboard">
+      <div class="overview-grid">
+        <q-card class="overview-card">
+          <q-card-section class="flex items-center q-pa-md">
+            <div class="card-content q-ml-md">
+              <div class="text-h4 text-weight-bold">0</div>
+              <div class="text-body2">Total Users</div>
+            </div>
           </q-card-section>
-          <q-card-actions align="left">
-            <q-btn color="red-8" label="Settings" flat />
-          </q-card-actions>
         </q-card>
-      </q-scroll-area>
-    </q-drawer>
-  </q-layout>
+
+        <q-card class="overview-card">
+          <q-card-section class="flex items-center q-pa-md">
+            <div class="card-content q-ml-md">
+              <div class="text-h4 text-weight-bold">0</div>
+              <div class="text-body2">Pending Approvals</div>
+            </div>
+          </q-card-section>
+        </q-card>
+
+        <q-card class="overview-card">
+          <q-card-section class="flex items-center q-pa-md">
+            <div class="card-content q-ml-md">
+              <div class="text-h4 text-weight-bold">0</div>
+              <div class="text-body2">I dont know yet</div>
+            </div>
+          </q-card-section>
+        </q-card>
+
+        <q-card class="overview-card">
+          <q-card-section class="flex items-center q-pa-md">
+            <div class="card-content q-ml-md">
+              <div class="text-h4 text-weight-bold">0</div>
+              <div class="text-body2">I dont know yet</div>
+            </div>
+          </q-card-section>
+        </q-card>
+      </div>
+
+      <q-card class="admin-actions q-mt-lg">
+        <q-card-section>
+          <div class="text-h5 text-center text-primary q-mb-md">Admin Actions</div>
+
+          <div class="action-grid">
+            <q-card class="admin-action-card cursor-pointer" @click="navigateToUserManagement">
+              <q-card-section class="text-center">
+                <q-icon name="person" size="48px" color="primary" class="q-mb-sm" />
+                <div class="text-h6 text-primary">User Management</div>
+                <div class="text-body2 text-grey-7">Manage user roles and permissions</div>
+              </q-card-section>
+            </q-card>
+
+            <q-card class="admin-action-card cursor-pointer" @click="navigateToPendingApprovals">
+              <q-card-section class="text-center">
+                <q-icon name="check_circle" size="48px" color="primary" class="q-mb-sm" />
+                <div class="text-h6 text-primary">Pending Approvals</div>
+                <div class="text-body2 text-grey-7">Review and approve Registrations</div>
+              </q-card-section>
+            </q-card>
+          </div>
+        </q-card-section>
+      </q-card>
+
+      <q-card class="system-logs q-mt-lg">
+        <q-card-section>
+          <div class="text-h5 text-center text-primary q-mb-md">System Logs</div>
+
+          <div class="logs-content">
+            <p class="text-center text-grey-7">View system activity and logs</p>
+          </div>
+        </q-card-section>
+      </q-card>
+    </div>
+  </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { ref } from 'vue';
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'AdminDashboard',
-  setup() {
-    const leftDrawer = ref(false);
+const router = useRouter()
 
-    function selectCard(name: string) {
-      alert(`You clicked ${name}!`);
-    }
+const navigateToUserManagement = () => {
+  router.push('/admin/user-management').catch(() => {
 
-    return { leftDrawer, selectCard };
-  },
-});
+  })
+}
+
+const navigateToPendingApprovals = () => {
+  router.push('/admin/pending-approvals').catch(() => {
+
+  })
+}
 </script>
 
 <style scoped>
-.dashboard-card {
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  cursor: pointer;
+.admin-dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.overview-card {
+  background: linear-gradient(135deg, #1976D2, #1565C0);
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.overview-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(25, 118, 210, 0.4);
+}
+
+
+.card-content {
+  color: white;
+}
+
+.admin-actions,
+.system-logs {
+  border: 1px solid #e0e0e0;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.admin-action-card {
+  border: 1.5px solid rgba(46, 139, 87, 0.2);
+  transition: all 0.3s ease;
+}
+
+.admin-action-card:hover {
+  transform: translateY(-3px);
+  border-color: #2E8B57;
+  box-shadow: 0 10px 25px rgba(46, 139, 87, 0.2);
+}
+
+.logs-content {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

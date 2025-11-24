@@ -24,9 +24,24 @@ const routes: RouteRecordRaw[] = [
         path: 'officer-dashboard',
         component: () => import('pages/Officer/OfficerDashboard.vue'),
       },
+     
+    ],
+  },
+  {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
       {
-        path: 'admin-dashboard',
-        component: () => import('pages/Admin/AdminDashboard.vue'),
+        path: '', name: 'admin-dashboard',
+        component: () => import('src/pages/Admin/AdminDashboard.vue'),
+      },
+      {
+        path: 'user-management',
+        component: () => import('src/pages/Admin/UserManagementPage.vue'),
+      },
+      {
+        path: 'pending-approvals',
+        component: () => import('src/pages/Admin/PendingApprovalPage.vue')
       },
     ],
   },
