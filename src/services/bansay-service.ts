@@ -8,6 +8,7 @@ export class BansayService {
   private authApi = new AuthApi({
     basePath: baseUrl,
     isJsonMime: () => true,
+    accessToken: () => localStorage.getItem('accessToken') || '',
   })
   static getInstance() {
     this.instance = this.instance || new BansayService();
@@ -17,6 +18,11 @@ export class BansayService {
     const response = await this.authApi.authControllerLogin(data);
     if (response.status == 201 || response.status == 200) {
       //save access token (response.data.accessToken) to localStorage
+      if (response.data.accessToken) {
+        localStorage.setItem('accessToken', response.data.accessToken);
+      }
+      // User data is NOT stored in localStorage for data privacy
+      // Use getCurrentUser() to fetch user data when needed
       return response.data;
     } else {
       throw new Error(response.statusText || "Bad Request");
@@ -25,10 +31,30 @@ export class BansayService {
   async registerUser(data: UserRegisterDto) {
     const response = await this.authApi.authControllerRegister(data);
     if (response.status == 201 || response.status == 200) {
+      if (response.data.user) {
+        // Note: Register might not return a token depending on backend implementation, 
+        // but if it does or if we want to auto-login, we'd handle it here.
+        // The current backend register response seems to only return the user.
+        // If auto-login is needed after register, we might need to call login or backend needs to return token.
+        // For now, we just return the data.
+      }
       return response.data;
     } else {
       throw new Error(response.statusText || "Bad Request");
     }
+  }
+
+  async getCurrentUser() {
+    const response = await this.authApi.authControllerGetMe();
+    if (response.status == 200) {
+      return response.data;
+    } else {
+      throw new Error(response.statusText || "Failed to get current user");
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('accessToken');
   }
 }
 

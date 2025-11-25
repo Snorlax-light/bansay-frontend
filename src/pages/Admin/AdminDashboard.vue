@@ -4,6 +4,7 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" @click="leftDrawer = !leftDrawer" />
         <q-toolbar-title>Admin Dashboard</q-toolbar-title>
+        <q-btn flat round icon="logout" @click="logout" />
       </q-toolbar>
     </q-header>
     <q-drawer v-model="leftDrawer" show-if-above bordered class="bg-grey-1">
@@ -51,6 +52,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { ref } from 'vue';
+import { useAuthStore } from 'src/stores/auth-store';
 
 export default defineComponent({
   name: 'AdminDashboard',
@@ -61,7 +63,12 @@ export default defineComponent({
       alert(`You clicked ${name}!`);
     }
 
-    return { leftDrawer, selectCard };
+    const authStore = useAuthStore();
+    function logout() {
+      authStore.logout();
+    }
+
+    return { leftDrawer, selectCard, logout };
   },
 });
 </script>
