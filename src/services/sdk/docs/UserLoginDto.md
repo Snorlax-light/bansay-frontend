@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **username** | **string** | The username (Student or Staff ID) | [default to undefined]
 **password** | **string** |  | [default to undefined]
-**role** | **string** | Role of the user | [default to undefined]
 
 ## Example
 
@@ -17,7 +16,6 @@ import { UserLoginDto } from './api';
 const instance: UserLoginDto = {
     username,
     password,
-    role,
 };
 ```
 
