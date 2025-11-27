@@ -30,6 +30,21 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/Admin/AdminDashboard.vue')
+      },
+      {
+        path: 'users',
+        name: 'user-management',
+        component: () => import('pages/Admin/UserManagementPage.vue')
+      }
+    ]
+  },
 
   {
     path: '/:catchAll(.*)*',
