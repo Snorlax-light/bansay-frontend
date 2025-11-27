@@ -35,23 +35,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/student',
     component: () => import('pages/student/StudentDashboard.vue'),
-    children: [
-      {
-        path: '',
-        name: 'student-dashboard',
-        component: () => import('pages/student/LiabilitiesSummary.vue'), // Placeholder
-      },
-      {
-        path: 'appeal',
-        name: 'appeal-submission',
-        component: () => import('pages/student/AppealSubmissionPage.vue'), // Placeholder
-      },
-      {
-        path: 'settle',
-        name: 'settle-payment',
-        component: () => import('pages/student/SettlePaymentPage.vue'), // Placeholder
-      },
-    ],
   },
 
   // =================================================================
@@ -61,11 +44,6 @@ const routes: RouteRecordRaw[] = [
     path: '/officer',
     component: () => import('layouts/OfficerLayout.vue'), // << New Officer Layout
     children: [
-      {
-        path: '',
-        name: 'officer-dashboard',
-        component: () => import('pages/Officer/OfficerDashboard.vue'),
-      },
       {
         path: 'manage',
         name: 'liability-management',
