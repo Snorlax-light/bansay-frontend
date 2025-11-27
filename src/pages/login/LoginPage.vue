@@ -96,7 +96,6 @@ export default defineComponent({
         const response = await authStore.login({
           username: username.value,
           password: password.value,
-          role: '',
         });
 
         const role = response.user?.role;

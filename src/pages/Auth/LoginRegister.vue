@@ -150,7 +150,6 @@ async function login() {
   const response = await authStore.login({
     username: loginUsername.value,
     password: loginPassword.value,
-    role: '',
   });
   if (/^admin$/i.test(response.user?.role)) {
     await $router.replace({
