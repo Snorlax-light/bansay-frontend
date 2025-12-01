@@ -26,6 +26,125 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface CreateLiabilityDto
+ */
+export interface CreateLiabilityDto {
+    /**
+     * The student\'s username
+     * @type {string}
+     * @memberof CreateLiabilityDto
+     */
+    'studentUsername': string;
+    /**
+     * The type of liability
+     * @type {string}
+     * @memberof CreateLiabilityDto
+     */
+    'type': CreateLiabilityDtoTypeEnum;
+    /**
+     * The monetary amount of the liability
+     * @type {number}
+     * @memberof CreateLiabilityDto
+     */
+    'amount': number;
+    /**
+     * The date the liability is due (YYYY-MM-DD)
+     * @type {string}
+     * @memberof CreateLiabilityDto
+     */
+    'dueDate': string;
+}
+
+export const CreateLiabilityDtoTypeEnum = {
+    Tuition: 'tuition',
+    Fee: 'fee',
+    Fine: 'fine',
+    Other: 'other'
+} as const;
+
+export type CreateLiabilityDtoTypeEnum = typeof CreateLiabilityDtoTypeEnum[keyof typeof CreateLiabilityDtoTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface Liability
+ */
+export interface Liability {
+    /**
+     * 
+     * @type {number}
+     * @memberof Liability
+     */
+    'id': number;
+    /**
+     * 
+     * @type {User}
+     * @memberof Liability
+     */
+    'student': User;
+    /**
+     * 
+     * @type {User}
+     * @memberof Liability
+     */
+    'issuer': User;
+    /**
+     * 
+     * @type {string}
+     * @memberof Liability
+     */
+    'type': LiabilityTypeEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof Liability
+     */
+    'amount': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Liability
+     */
+    'status': LiabilityStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof Liability
+     */
+    'dueDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Liability
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Liability
+     */
+    'updatedAt': string;
+}
+
+export const LiabilityTypeEnum = {
+    Tuition: 'tuition',
+    Fee: 'fee',
+    Fine: 'fine',
+    Other: 'other'
+} as const;
+
+export type LiabilityTypeEnum = typeof LiabilityTypeEnum[keyof typeof LiabilityTypeEnum];
+export const LiabilityStatusEnum = {
+    Unpaid: 'Unpaid',
+    Paid: 'Paid',
+    Cancelled: 'Cancelled'
+} as const;
+
+export type LiabilityStatusEnum = typeof LiabilityStatusEnum[keyof typeof LiabilityStatusEnum];
+
+/**
+ * 
+ * @export
  * @interface LoginResponseDto
  */
 export interface LoginResponseDto {
@@ -47,6 +166,25 @@ export interface LoginResponseDto {
      * @memberof LoginResponseDto
      */
     'user': UserInfoDto;
+}
+/**
+ * 
+ * @export
+ * @interface MyLiabilitiesResponseDto
+ */
+export interface MyLiabilitiesResponseDto {
+    /**
+     * 
+     * @type {Array<Liability>}
+     * @memberof MyLiabilitiesResponseDto
+     */
+    'liabilities': Array<Liability>;
+    /**
+     * The sum of all UNPAID liabilities
+     * @type {number}
+     * @memberof MyLiabilitiesResponseDto
+     */
+    'totalOutstandingBalance': number;
 }
 /**
  * 
@@ -216,6 +354,83 @@ export interface StudentRegistrationDto {
      */
     'email': string;
 }
+/**
+ * 
+ * @export
+ * @interface User
+ */
+export interface User {
+    /**
+     * 
+     * @type {number}
+     * @memberof User
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'username': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'firstName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'lastName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'role': UserRoleEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'status': UserStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'updatedAt': string;
+}
+
+export const UserRoleEnum = {
+    Admin: 'Admin',
+    Officer: 'Officer',
+    Student: 'Student'
+} as const;
+
+export type UserRoleEnum = typeof UserRoleEnum[keyof typeof UserRoleEnum];
+export const UserStatusEnum = {
+    Pending: 'Pending',
+    Active: 'Active',
+    Deactivated: 'Deactivated'
+} as const;
+
+export type UserStatusEnum = typeof UserStatusEnum[keyof typeof UserStatusEnum];
+
 /**
  * 
  * @export
@@ -756,13 +971,14 @@ export const LiabilityApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @param {object} body 
+         * @summary Create a new liability (Officer Only)
+         * @param {CreateLiabilityDto} createLiabilityDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        liabilityControllerCreate: async (body: object, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('liabilityControllerCreate', 'body', body)
+        liabilityControllerCreate: async (createLiabilityDto: CreateLiabilityDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createLiabilityDto' is not null or undefined
+            assertParamExists('liabilityControllerCreate', 'createLiabilityDto', createLiabilityDto)
             const localVarPath = `/liability`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -786,7 +1002,7 @@ export const LiabilityApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createLiabilityDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -795,6 +1011,95 @@ export const LiabilityApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Find all liabilities (Officer/Admin Only)
+         * @param {LiabilityControllerFindAllStatusEnum} [status] Filter by liability status
+         * @param {string} [studentUsername] Filter by the student ID
+         * @param {string} [sortBy] Field to sort by (e.g., \&#39;dueDate\&#39;, \&#39;amount\&#39;, \&#39;status\&#39;)
+         * @param {LiabilityControllerFindAllSortOrderEnum} [sortOrder] Sorty order (\&#39;ASC\&#39; or \&#39;DESC\&#39;)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        liabilityControllerFindAll: async (status?: LiabilityControllerFindAllStatusEnum, studentUsername?: string, sortBy?: string, sortOrder?: LiabilityControllerFindAllSortOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/liability`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (status !== undefined) {
+                localVarQueryParameter['status'] = status;
+            }
+
+            if (studentUsername !== undefined) {
+                localVarQueryParameter['studentUsername'] = studentUsername;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (sortOrder !== undefined) {
+                localVarQueryParameter['sortOrder'] = sortOrder;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Find all liabilities for the logged-in student
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        liabilityControllerFindMy: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/liability/me`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Find one liability by ID (Officer/Admin Only)
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -832,6 +1137,7 @@ export const LiabilityApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Soft-delete a liability (Officer/Admin Only)
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -869,6 +1175,7 @@ export const LiabilityApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Update a liability (Officer/Admin Only)
          * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
@@ -922,23 +1229,53 @@ export const LiabilityApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {object} body 
+         * @summary Create a new liability (Officer Only)
+         * @param {CreateLiabilityDto} createLiabilityDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async liabilityControllerCreate(body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.liabilityControllerCreate(body, options);
+        async liabilityControllerCreate(createLiabilityDto: CreateLiabilityDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Liability>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.liabilityControllerCreate(createLiabilityDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LiabilityApi.liabilityControllerCreate']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
+         * @summary Find all liabilities (Officer/Admin Only)
+         * @param {LiabilityControllerFindAllStatusEnum} [status] Filter by liability status
+         * @param {string} [studentUsername] Filter by the student ID
+         * @param {string} [sortBy] Field to sort by (e.g., \&#39;dueDate\&#39;, \&#39;amount\&#39;, \&#39;status\&#39;)
+         * @param {LiabilityControllerFindAllSortOrderEnum} [sortOrder] Sorty order (\&#39;ASC\&#39; or \&#39;DESC\&#39;)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async liabilityControllerFindAll(status?: LiabilityControllerFindAllStatusEnum, studentUsername?: string, sortBy?: string, sortOrder?: LiabilityControllerFindAllSortOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Liability>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.liabilityControllerFindAll(status, studentUsername, sortBy, sortOrder, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LiabilityApi.liabilityControllerFindAll']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Find all liabilities for the logged-in student
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async liabilityControllerFindMy(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MyLiabilitiesResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.liabilityControllerFindMy(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LiabilityApi.liabilityControllerFindMy']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Find one liability by ID (Officer/Admin Only)
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async liabilityControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async liabilityControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Liability>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.liabilityControllerFindOne(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LiabilityApi.liabilityControllerFindOne']?.[localVarOperationServerIndex]?.url;
@@ -946,6 +1283,7 @@ export const LiabilityApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Soft-delete a liability (Officer/Admin Only)
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -958,12 +1296,13 @@ export const LiabilityApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Update a liability (Officer/Admin Only)
          * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async liabilityControllerUpdate(id: string, body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async liabilityControllerUpdate(id: string, body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Liability>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.liabilityControllerUpdate(id, body, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LiabilityApi.liabilityControllerUpdate']?.[localVarOperationServerIndex]?.url;
@@ -981,24 +1320,49 @@ export const LiabilityApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @param {object} body 
+         * @summary Create a new liability (Officer Only)
+         * @param {CreateLiabilityDto} createLiabilityDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        liabilityControllerCreate(body: object, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.liabilityControllerCreate(body, options).then((request) => request(axios, basePath));
+        liabilityControllerCreate(createLiabilityDto: CreateLiabilityDto, options?: RawAxiosRequestConfig): AxiosPromise<Liability> {
+            return localVarFp.liabilityControllerCreate(createLiabilityDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @summary Find all liabilities (Officer/Admin Only)
+         * @param {LiabilityControllerFindAllStatusEnum} [status] Filter by liability status
+         * @param {string} [studentUsername] Filter by the student ID
+         * @param {string} [sortBy] Field to sort by (e.g., \&#39;dueDate\&#39;, \&#39;amount\&#39;, \&#39;status\&#39;)
+         * @param {LiabilityControllerFindAllSortOrderEnum} [sortOrder] Sorty order (\&#39;ASC\&#39; or \&#39;DESC\&#39;)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        liabilityControllerFindAll(status?: LiabilityControllerFindAllStatusEnum, studentUsername?: string, sortBy?: string, sortOrder?: LiabilityControllerFindAllSortOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<Liability>> {
+            return localVarFp.liabilityControllerFindAll(status, studentUsername, sortBy, sortOrder, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Find all liabilities for the logged-in student
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        liabilityControllerFindMy(options?: RawAxiosRequestConfig): AxiosPromise<MyLiabilitiesResponseDto> {
+            return localVarFp.liabilityControllerFindMy(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Find one liability by ID (Officer/Admin Only)
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        liabilityControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        liabilityControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<Liability> {
             return localVarFp.liabilityControllerFindOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @summary Soft-delete a liability (Officer/Admin Only)
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1008,12 +1372,13 @@ export const LiabilityApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary Update a liability (Officer/Admin Only)
          * @param {string} id 
          * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        liabilityControllerUpdate(id: string, body: object, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        liabilityControllerUpdate(id: string, body: object, options?: RawAxiosRequestConfig): AxiosPromise<Liability> {
             return localVarFp.liabilityControllerUpdate(id, body, options).then((request) => request(axios, basePath));
         },
     };
@@ -1028,17 +1393,45 @@ export const LiabilityApiFactory = function (configuration?: Configuration, base
 export class LiabilityApi extends BaseAPI {
     /**
      * 
-     * @param {object} body 
+     * @summary Create a new liability (Officer Only)
+     * @param {CreateLiabilityDto} createLiabilityDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LiabilityApi
      */
-    public liabilityControllerCreate(body: object, options?: RawAxiosRequestConfig) {
-        return LiabilityApiFp(this.configuration).liabilityControllerCreate(body, options).then((request) => request(this.axios, this.basePath));
+    public liabilityControllerCreate(createLiabilityDto: CreateLiabilityDto, options?: RawAxiosRequestConfig) {
+        return LiabilityApiFp(this.configuration).liabilityControllerCreate(createLiabilityDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @summary Find all liabilities (Officer/Admin Only)
+     * @param {LiabilityControllerFindAllStatusEnum} [status] Filter by liability status
+     * @param {string} [studentUsername] Filter by the student ID
+     * @param {string} [sortBy] Field to sort by (e.g., \&#39;dueDate\&#39;, \&#39;amount\&#39;, \&#39;status\&#39;)
+     * @param {LiabilityControllerFindAllSortOrderEnum} [sortOrder] Sorty order (\&#39;ASC\&#39; or \&#39;DESC\&#39;)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LiabilityApi
+     */
+    public liabilityControllerFindAll(status?: LiabilityControllerFindAllStatusEnum, studentUsername?: string, sortBy?: string, sortOrder?: LiabilityControllerFindAllSortOrderEnum, options?: RawAxiosRequestConfig) {
+        return LiabilityApiFp(this.configuration).liabilityControllerFindAll(status, studentUsername, sortBy, sortOrder, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Find all liabilities for the logged-in student
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LiabilityApi
+     */
+    public liabilityControllerFindMy(options?: RawAxiosRequestConfig) {
+        return LiabilityApiFp(this.configuration).liabilityControllerFindMy(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Find one liability by ID (Officer/Admin Only)
      * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1050,6 +1443,7 @@ export class LiabilityApi extends BaseAPI {
 
     /**
      * 
+     * @summary Soft-delete a liability (Officer/Admin Only)
      * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1061,6 +1455,7 @@ export class LiabilityApi extends BaseAPI {
 
     /**
      * 
+     * @summary Update a liability (Officer/Admin Only)
      * @param {string} id 
      * @param {object} body 
      * @param {*} [options] Override http request option.
@@ -1072,6 +1467,23 @@ export class LiabilityApi extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const LiabilityControllerFindAllStatusEnum = {
+    Unpaid: 'Unpaid',
+    Paid: 'Paid',
+    Cancelled: 'Cancelled'
+} as const;
+export type LiabilityControllerFindAllStatusEnum = typeof LiabilityControllerFindAllStatusEnum[keyof typeof LiabilityControllerFindAllStatusEnum];
+/**
+ * @export
+ */
+export const LiabilityControllerFindAllSortOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type LiabilityControllerFindAllSortOrderEnum = typeof LiabilityControllerFindAllSortOrderEnum[keyof typeof LiabilityControllerFindAllSortOrderEnum];
 
 
 /**

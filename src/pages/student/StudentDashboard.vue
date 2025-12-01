@@ -4,6 +4,7 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" @click="leftDrawer = !leftDrawer" />
         <q-toolbar-title>Student Dashboard</q-toolbar-title>
+        <q-btn flat round icon="logout" @click="logout" />
       </q-toolbar>
     </q-header>
 

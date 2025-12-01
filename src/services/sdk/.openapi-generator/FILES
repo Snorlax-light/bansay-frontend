@@ -7,8 +7,11 @@ configuration.ts
 docs/AdminApi.md
 docs/AppApi.md
 docs/AuthApi.md
+docs/CreateLiabilityDto.md
+docs/Liability.md
 docs/LiabilityApi.md
 docs/LoginResponseDto.md
+docs/MyLiabilitiesResponseDto.md
 docs/OfficerApi.md
 docs/OfficerDto.md
 docs/RegisterResponseDto.md
@@ -17,6 +20,7 @@ docs/StudentApi.md
 docs/StudentDto.md
 docs/StudentPatchDto.md
 docs/StudentRegistrationDto.md
+docs/User.md
 docs/UserApi.md
 docs/UserInfoDto.md
 docs/UserLoginDto.md

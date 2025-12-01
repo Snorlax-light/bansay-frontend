@@ -53,7 +53,7 @@
         <q-btn type="submit" color="indigo" label="Login" class="full-width" />
 
         <p>
-          Don’t have an account?
+          Don't have an account?
           <router-link to="/register">Register</router-link>
         </p>
         <p>Or login with</p>
@@ -72,14 +72,18 @@
 import { defineComponent, ref } from 'vue';
 import '../../assets/styles/auth.css';
 import { useRouter } from 'vue-router';
-import { QBtn, QForm, QIcon } from 'quasar';
+import { QBtn, QForm, QIcon, useQuasar } from 'quasar';
 import logo from '../../assets/logo.png';
+import { useAuthStore } from 'src/stores/auth-store';
 
 export default defineComponent({
   name: 'LoginPage',
   components: { QBtn, QForm, QIcon },
   setup() {
     const router = useRouter();
+    const authStore = useAuthStore();
+    const $q = useQuasar();
+
     const username = ref('');
     const password = ref('');
     const loginForm = ref<QForm | null>(null);
@@ -88,7 +92,39 @@ export default defineComponent({
       const valid = await loginForm.value?.validate();
       if (valid !== true) return;
 
-      void router.push('/dashboard');
+      try {
+        const response = await authStore.login({
+          username: username.value,
+          password: password.value,
+        });
+
+        const role = response.user?.role;
+        if (role === 'Student') {
+          await router.push('/student-dashboard');
+        } else if (role === 'Officer') {
+          await router.push('/officer-dashboard');
+        } else if (role === 'Admin') {
+          await router.push('/admin-dashboard');
+        } else {
+          // Fallback if role doesn't match or is missing
+          void router.push('/');
+        }
+        $q.notify({
+          type: 'positive',
+          message: 'Login successful',
+        });
+      } catch (error: unknown) {
+        const errorMessage =
+          error instanceof Error && error.message
+          ? 'Wrong username or password'
+          : 'Login failed';
+          $q.notify({
+            type: 'negative',
+            message: errorMessage,
+            position: 'top',
+            timeout: 3000,
+        });
+      }
     };
 
     return { logo, username, password, loginForm, handleLogin };

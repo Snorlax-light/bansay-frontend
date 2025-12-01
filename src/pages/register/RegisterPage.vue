@@ -156,27 +156,38 @@
   </q-page>
 </template>
 
-<script lang="ts" setup>
-import { ref, watch } from 'vue';
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import '../../assets/styles/auth.css';
 import { useRouter } from 'vue-router';
 import { QBtn, QForm } from 'quasar';
 import logo from '../../assets/logo.png';
+import { type UserRegisterDtoRoleEnum } from 'src/services/sdk';
 import { useAuthStore } from 'src/stores/auth-store';
-import { UserRegisterDtoRoleEnum } from 'src/services/sdk';
+import { useQuasar } from 'quasar';
 
-const router = useRouter();
-const authStore = useAuthStore();
+export default defineComponent({
+  name: 'RegisterPage',
+  components: { QBtn, QForm },
+  setup() {
+    const router = useRouter();
+    const $q = useQuasar();
+    const authStore = useAuthStore();
+    const firstName = ref('');
+    const lastName = ref('');
+    const username = ref('');
+    const email = ref('');
+    const password = ref('');
+    const confirmPassword = ref('');
+    const selectedRole = ref(null);
+    const passwordError = ref('');
+    const registerForm = ref<QForm | null>(null);
 
-const firstName = ref('');
-const lastName = ref('');
-
-const email = ref('');
-const username = ref('');
-const selectedRole = ref('');
-const password = ref('');
-const confirmPassword = ref('');
-const passwordError = ref('');
-const registerForm = ref<QForm | null>(null);
+    const roles = [
+    { label: 'Student', value: 'Student' },
+    { label: 'Officer', value: 'Officer' },
+    { label: 'Admin', value: 'Admin' },
+    ];
 
 const roles = [
   { label: 'Student', value: UserRegisterDtoRoleEnum.Student },
@@ -184,28 +195,77 @@ const roles = [
   { label: 'Admin', value: UserRegisterDtoRoleEnum.Admin },
 ];
 
-watch([password, confirmPassword], () => {
-  if (confirmPassword.value && password.value !== confirmPassword.value) {
-    passwordError.value = 'Passwords do not match';
-  } else {
-    passwordError.value = '';
-  }
-});
+      try {
+        if (password.value !== confirmPassword.value) {
+          $q.notify({
+            type: 'negative',
+            message: 'Passwords do not match',
+            position: 'top',
+            timeout: 3000,
+          });
+          return;
+        }
 
-async function handleRegister() {
-  if (password.value !== confirmPassword.value) {
-    passwordError.value = 'Passwords do not match';
-    return;
-  }
+        if (!selectedRole.value) {
+          $q.notify({
+            type: 'negative',
+            message: 'Please select a role',
+            position: 'top',
+            timeout: 3000,
+          });
+          return;
+        }
 
-  await authStore.register({
-    firstName: firstName.value,
-    lastName: lastName.value,
-    email: email.value,
-    password: password.value,
-    role: selectedRole.value as UserRegisterDtoRoleEnum,
-    username: username.value,
-  });
+        await authStore.register({
+          firstName: firstName.value,
+          lastName: lastName.value,
+          email: email.value,
+          password: password.value,
+          role: selectedRole.value as UserRegisterDtoRoleEnum,
+          username: username.value,
+        });
+
+        $q.notify({
+          type: 'positive',
+          message: 'Registration successful! Your account is pending approval.',
+          position: 'top',
+          timeout: 5000,
+          icon: 'check_circle',
+        });
+
+        firstName.value = '';
+        lastName.value = '';
+        email.value = '';
+        username.value = '';
+        password.value = '';
+        confirmPassword.value = '';
+        selectedRole.value = null;
+
+        setTimeout(() => {
+          void router.push('/login');
+        }, 2000);
+
+
+      } catch (error: unknown) {
+        let errorMessage = 'Registration failed. Please try again.';
+        if (typeof error === 'object' && error !== null && 'response' in error) {
+          const axiosError = error as { response?: { data?: { message?: string } } };
+          if (axiosError.response?.data?.message) {
+            errorMessage = axiosError.response.data.message;
+          }
+        } else if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+
+        $q.notify({
+          type: 'negative',
+          message: errorMessage,
+          position: 'top',
+          timeout: 5000,
+          icon: 'error',
+        });
+      }
+    };
 
   if (selectedRole.value === UserRegisterDtoRoleEnum.Student)
     void router.push('/Student-Dashboard');
