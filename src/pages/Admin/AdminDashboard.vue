@@ -10,6 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import TopStudents from './TopStudents.vue';
-import TopLiabilities from './TopLiabilities.vue';
+import TopStudents from './widgets/TopStudents.vue';
+import TopLiabilities from './widgets/TopLiabilities.vue';
 </script>

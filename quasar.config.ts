@@ -57,7 +57,9 @@ export default defineConfig((/* ctx */) => {
 
       // publicPath: '/',
       // analyze: true,
-      // env: {},
+      env: {
+        ENV: (typeof process.env.ENV == 'undefined') ? '' : process.env.ENV,
+      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,

@@ -22,9 +22,9 @@ const routes: RouteRecordRaw[] = [
       // { path: 'student-dashboard', component: () => import('pages/student/StudentDashboard.vue') },
       // { path: 'officer-dashboard', component: () => import('pages/Officer/OfficerDashboard.vue') },
       {
-        path: 'admin-dashboard',
-        component: () => import('pages/Admin/AdminDashboard.vue'),
-        name: 'admin-dashboard', // Added name for clarity/redirection
+        path: 'student-dashboard',
+        component: () => import('pages/student/StudentDashboard.vue'),
+        meta: { requiresAuth: true, roles: ['Student'] },
       },
     ],
   },
@@ -73,6 +73,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/admin',
     component: () => import('layouts/AdminLayout.vue'),
+    meta: { requiresAuth: true, roles: ['Admin'] },
     children: [
       {
         path: '',
