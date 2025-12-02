@@ -60,7 +60,7 @@ export class BansayService {
       // Use getCurrentUser() to fetch user data when needed
       return response.data;
     } else {
-      throw new Error(response.statusText || "Bad Request");
+      throw new Error(response.statusText || 'Bad Request');
     }
   }
 
@@ -76,7 +76,7 @@ export class BansayService {
       }
       return response.data;
     } else {
-      throw new Error(response.statusText || "Bad Request");
+      throw new Error(response.statusText || 'Bad Request');
     }
   }
 

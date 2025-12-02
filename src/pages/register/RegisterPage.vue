@@ -189,9 +189,11 @@ export default defineComponent({
     { label: 'Admin', value: 'Admin' },
     ];
 
-    const handleRegister = async () => {
-      const valid = await registerForm.value?.validate();
-      if (valid !== true) return;
+const roles = [
+  { label: 'Student', value: UserRegisterDtoRoleEnum.Student },
+  { label: 'Officer', value: UserRegisterDtoRoleEnum.Officer },
+  { label: 'Admin', value: UserRegisterDtoRoleEnum.Admin },
+];
 
       try {
         if (password.value !== confirmPassword.value) {
@@ -265,20 +267,11 @@ export default defineComponent({
       }
     };
 
-    return {
-      logo,
-      firstName,
-      lastName,
-      username,
-      email,
-      password,
-      confirmPassword,
-      selectedRole,
-      passwordError,
-      roles,
-      registerForm,
-      handleRegister,
-    };
-  },
-});
+  if (selectedRole.value === UserRegisterDtoRoleEnum.Student)
+    void router.push('/Student-Dashboard');
+  else if (selectedRole.value === UserRegisterDtoRoleEnum.Officer)
+    void router.push('/Officer-Dashboard');
+  else if (selectedRole.value === UserRegisterDtoRoleEnum.Admin)
+    void router.push('/Admin-Dashboard');
+}
 </script>
