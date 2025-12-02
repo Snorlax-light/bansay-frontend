@@ -75,7 +75,9 @@ import RecordSection from 'src/components/MyRecordSection.vue';
 
 const leftDrawer = ref(false);
 const selectedSection = ref('Overview');
-
+function logout() {
+  //
+}
 function selectSection(section: string) {
   selectedSection.value = section;
   leftDrawer.value = false;

@@ -157,7 +157,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref } from 'vue';
+import { ref } from 'vue';
 import '../../assets/styles/auth.css';
 import { useRouter } from 'vue-router';
 import { QBtn, QForm } from 'quasar';
