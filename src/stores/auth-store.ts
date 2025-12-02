@@ -13,6 +13,9 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async fetchCurrentUser() {
+      if (this.currentUser) {
+        return this.currentUser;
+      }
       // Fetch user data from backend instead of localStorage for data privacy
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {

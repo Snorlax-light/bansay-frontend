@@ -36,7 +36,7 @@ export default defineRouter(function (/* { store, ssrContext } */) {
   Router.beforeEach(async (to, from, next) => {
     const { useAuthStore } = await import('src/stores/auth-store');
     const authStore = useAuthStore();
-
+    await authStore.fetchCurrentUser();
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const allowedRoles = to.meta.roles as string[] | undefined;
 
