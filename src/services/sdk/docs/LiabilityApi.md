@@ -5,9 +5,8 @@ All URIs are relative to *http://localhost*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**liabilityControllerCreate**](#liabilitycontrollercreate) | **POST** /liability | |
-|[**liabilityControllerFindAll**](#liabilitycontrollerfindall) | **GET** /liability | |
 |[**liabilityControllerFindOne**](#liabilitycontrollerfindone) | **GET** /liability/{id} | |
-|[**liabilityControllerRemove**](#liabilitycontrollerremove) | **DELETE** /liability/{id} | |
+|[**liabilityControllerSoftDelete**](#liabilitycontrollersoftdelete) | **DELETE** /liability/{id} | |
 |[**liabilityControllerUpdate**](#liabilitycontrollerupdate) | **PATCH** /liability/{id} | |
 
 # **liabilityControllerCreate**
@@ -45,7 +44,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -57,49 +56,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** |  |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **liabilityControllerFindAll**
-> liabilityControllerFindAll()
-
-
-### Example
-
-```typescript
-import {
-    LiabilityApi,
-    Configuration
-} from './api';
-
-const configuration = new Configuration();
-const apiInstance = new LiabilityApi(configuration);
-
-const { status, data } = await apiInstance.liabilityControllerFindAll();
-```
-
-### Parameters
-This endpoint does not have any parameters.
-
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** |  |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -138,7 +94,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -153,8 +109,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **liabilityControllerRemove**
-> liabilityControllerRemove()
+# **liabilityControllerSoftDelete**
+> liabilityControllerSoftDelete()
 
 
 ### Example
@@ -170,7 +126,7 @@ const apiInstance = new LiabilityApi(configuration);
 
 let id: string; // (default to undefined)
 
-const { status, data } = await apiInstance.liabilityControllerRemove(
+const { status, data } = await apiInstance.liabilityControllerSoftDelete(
     id
 );
 ```
@@ -188,7 +144,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -199,7 +155,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**200** |  |  -  |
+|**204** |  |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -241,7 +197,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
