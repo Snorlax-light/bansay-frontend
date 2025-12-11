@@ -54,6 +54,13 @@ const routes: RouteRecordRaw[] = [
         name: 'appeal-review',
         component: () => import('pages/Officer/AppealReviewPage.vue'), // Placeholder
       },
+
+    ],
+  },
+  {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
       {
         path: 'verify',
         name: 'payment-verification',
@@ -79,6 +86,16 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'admin-dashboard',
         component: () => import('pages/Admin/AdminDashboard.vue'),
+        path: '', name: 'admin-dashboard',
+        component: () => import('src/pages/Admin/AdminDashboard.vue'),
+      },
+      {
+        path: 'user-management',
+        component: () => import('src/pages/Admin/UserManagementPage.vue'),
+      },
+      {
+        path: 'pending-approvals',
+        component: () => import('src/pages/Admin/PendingApprovalPage.vue')
       },
       {
         path: 'users',
